@@ -18,14 +18,38 @@ class App extends React.Component {
       .then(res => this.setState({ employees: res.data.results }))
       .catch(err => console.log(err));
   }
-  
+
+  handleSort = (sort) => {
+    switch(sort) {
+      case "name":
+        return this.setState({employees: this.state.employees.sort( (a, b) => (a.name.first > b.name.first) ? 1 : -1)})
+      case "phone":
+        return this.setState({employees: this.state.employees.sort( (a, b) => (a.phone > b.phone) ? 1 : -1)})
+      case "email":
+        return this.setState({employees: this.state.employees.sort( (a, b) => (a.email > b.email) ? 1 : -1)})
+      default:
+        return this.setState({employees: this.state.employees})
+    }
+  }
+
   render() {
-  return (
-    <Wrapper>
-      <h1 className="title">Employee Directory</h1>
-      <EmployeeTable results={this.state.employees} />
-    </Wrapper>
-  ); 
+    return (
+      <Wrapper>
+        <h1 className="title">Employee Directory</h1>
+        <table>
+          <thead>
+            <tr>
+              <td>Image</td>
+              <td onClick={() => this.handleSort("name")}>Name</td>
+              <td onClick={() => this.handleSort("phone")}>Phone</td>
+              <td onClick={() => this.handleSort("email")}>Email</td>
+              <td>DOB</td>
+            </tr>
+          </thead>
+          <EmployeeTable results={this.state.employees} />
+        </table>
+      </Wrapper>
+    );
   }
 }
 
