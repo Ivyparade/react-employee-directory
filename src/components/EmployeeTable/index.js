@@ -7,7 +7,7 @@ function EmployeeTable(props) {
         {
           props.results.map(employee => {
             return (
-              <tr>
+              <tr data-id={employee.id.value}>
                 <td>
                   <img alt="" src={employee.picture.thumbnail}></img>
                 </td>
